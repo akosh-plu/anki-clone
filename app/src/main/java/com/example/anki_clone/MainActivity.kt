@@ -1,20 +1,13 @@
 package com.example.anki_clone
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.anki_clone.ui.theme.AnkicloneTheme
-import com.example.anki_clone.ui.theme.MainScreen
-
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.anki_clone.sets.Starter_set
 
 
 class MainActivity : ComponentActivity() {
@@ -22,11 +15,22 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
         setContent {
-            MainScreen()
+
+            //creating a navcontroller to switch between activities
+            val navcon = rememberNavController()
+            NavHost(navController = navcon, startDestination = "screen_1", builder = {
+                composable("screen_1"){
+                    Starter_set(navcon)
+                }
+                composable("screen_2"){
+                    MainActivity()
+                }
+
+            } )
+
+        }
         }
     }
 
-}
 
